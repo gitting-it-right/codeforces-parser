@@ -22,7 +22,7 @@ import argparse
 ###########################
 language_params = {
         'c++14' : {
-            'TEMPLATE'    : 'main.cc',
+            'TEMPLATE'    : 'header.cpp',
             'DEBUG_FLAGS' : '-DDEBUG',
             'COMPILE_CMD' : 'g++ -g -std=c++14 -Wall $DBG',
             'RUN_CMD'     : './a.out'
@@ -51,7 +51,7 @@ RED_F='\033[31m'
 GREEN_F='\033[32m'
 BOLD='\033[1m'
 NORM='\033[0m'
-TIME_CMD='`which time` -o time.out -f "(%es)"'
+TIME_CMD='/usr/bin/time -o time.out -f "(%es)"'
 TIME_AP='`cat time.out`'
 
 # Problems parser.
@@ -236,9 +236,9 @@ def main():
     TEMPLATE = language_params[language]["TEMPLATE"]
     for index, problem in enumerate(content.problems):
         print ('Downloading Problem %s: %s...' % (problem, content.problem_names[index]))
-        folder = '%s-%s/%s/' % (contest, language, problem)
+        folder = '/home/sreekar/cf/%s/%s/' % (contest, problem)
         call(['mkdir', '-p', folder])
-        call(['cp', '-n', TEMPLATE, '%s/%s.%s' % (folder, problem, TEMPLATE.split('.')[1])])
+        call(['cp', '-n', '/home/sreekar/cf/' + TEMPLATE, '%s/%s.%s' % (folder, problem, TEMPLATE.split('.')[1])])
         num_tests = parse_problem(folder, contest, problem)
         print('%d sample test(s) found.' % num_tests)
         generate_test_script(folder, language, num_tests, problem)
